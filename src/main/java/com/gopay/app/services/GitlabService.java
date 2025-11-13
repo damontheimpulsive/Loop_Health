@@ -2,6 +2,7 @@ package com.gopay.app.services;
 
 import com.gopay.app.clients.httpclients.GitlabServiceAPIClient;
 import com.gopay.app.models.GitlabCompareResponse;
+import com.gopay.app.models.GitlabLastDeploymentInfoResponse;
 import com.gopay.app.models.GitlabPipelineResponse;
 
 public class GitlabService {
@@ -16,5 +17,8 @@ public class GitlabService {
     }
     public GitlabCompareResponse compareCommits(String project, String fromCommit, String toCommit) throws Exception {
         return gitlabServiceAPIClient.compareCommits(project, fromCommit, toCommit);
+    }
+    public GitlabLastDeploymentInfoResponse getLastDeploymentWebUrlAndSha(String project, long environmentId) throws Exception {
+        return gitlabServiceAPIClient.getEnvironment(project, environmentId);
     }
 }

@@ -2,6 +2,7 @@ package com.gopay.app.clients.httpclients;
 
 
 import com.gopay.app.models.GitlabCompareResponse;
+import com.gopay.app.models.GitlabLastDeploymentInfoResponse;
 import com.gopay.app.models.GitlabPipelineResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -23,5 +24,11 @@ public interface GitlabServiceInterface {
             @Path("project") String project,
             @Query("from") String fromCommit,
             @Query("to") String toCommit
+    );
+    @GET("/api/v4/projects/{project}/environments/{environmentId}")
+    Call<GitlabLastDeploymentInfoResponse> getLastDeployment(
+            @Header("PRIVATE-TOKEN") String privateToken,
+            @Path("project") String project,
+            @Path("environmentId") long environmentId
     );
 }

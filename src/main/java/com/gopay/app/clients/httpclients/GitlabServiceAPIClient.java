@@ -1,6 +1,7 @@
 package com.gopay.app.clients.httpclients;
 
 import com.gopay.app.models.GitlabCompareResponse;
+import com.gopay.app.models.GitlabLastDeploymentInfoResponse;
 import com.gopay.app.models.GitlabPipelineResponse;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,5 +25,9 @@ public class GitlabServiceAPIClient {
     }
     public GitlabCompareResponse compareCommits(String project, String fromCommit, String toCommit) throws Exception {
         return gitlabServiceInterface.compareCommits(privateToken, project, fromCommit, toCommit).execute().body();
+    }
+
+    public GitlabLastDeploymentInfoResponse getEnvironment(String project, long environmentId) throws Exception {
+        return gitlabServiceInterface.getLastDeployment(privateToken, project, environmentId).execute().body();
     }
 }
