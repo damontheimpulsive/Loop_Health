@@ -39,8 +39,8 @@ public class LarkClient {
         LarkResponse larkResponse1 = gson.fromJson(larkResponse.body().string(), LarkResponse.class);
 
         log.info("Lark reply sent responseCode : {} ", larkResponse.code());
-        if (!larkResponse.isSuccessful() && larkResponse1.getCode() == "99991663") {
-            log.error("Lark reply failed with code 99991663: Invalid tenant access token");
+        if (!larkResponse.isSuccessful()) {
+            /*log.error("Lark reply failed with code 99991663: Invalid tenant access token");
             log.info("Requesting new tenant access token");
             Call<TenantTokenResponse> tokenCall = larkClientInterface.requestTenantToken(
                     new TenantTokenRequestBody("cli_a99fc0eb2e39ded0", "iJEr5mZZwn13anjBU2UQBdLUxfRmLHB0")
@@ -61,11 +61,9 @@ public class LarkClient {
                     messageId,
                     createRequestBody(body)
             );
-            retrofit2.Response<LarkResponse> retryResponse = replyCall.execute();
-            if (!retryResponse.isSuccessful()) {
-                log.error("Lark reply retry failed: {}", retryResponse.errorBody().string());
-                return;
-            }
+            retrofit2.Response<LarkResponse> retryResponse = replyCall.execute();*/
+            log.error("Lark reply retry failed: {}", larkResponse1.getCode());
+            return;
         }
         log.info("Lark reply sent successfully: {}", larkResponse.body());
     }
