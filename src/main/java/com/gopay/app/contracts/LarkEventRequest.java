@@ -45,7 +45,7 @@ public class LarkEventRequest {
         private String chatId;
         @JsonProperty("chat_type")
         private String chatType;
-        private ReplyContract.Content content;
+        private String content;
         @JsonProperty("create_time")
         private String createTime;
         private List<Mention> mentions;

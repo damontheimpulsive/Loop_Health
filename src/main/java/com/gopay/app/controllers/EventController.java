@@ -1,9 +1,12 @@
 package com.gopay.app.controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.gopay.app.clients.httpclients.LarkClient;
 import com.gopay.app.contracts.ChallengeRequest;
 import com.gopay.app.contracts.LarkEventRequest;
+import com.gopay.app.contracts.MessageContent;
+import com.gopay.app.contracts.ReplyContract;
 import com.gopay.app.services.LarkService;
 import com.gopay.app.services.PacmanCreationService;
 import lombok.AllArgsConstructor;
@@ -35,12 +38,14 @@ public class EventController {
       return Map.of("challenge", challengeRequest.getChallenge());
     }
 
-
-
     log.info("Received unknown event type");
     final LarkEventRequest eventRequest = gson.fromJson(req.body(), LarkEventRequest.class);
-    final String requestContent = eventRequest.getEvent().getMessage().getContent().getText();
-    final String deploymentPipelineUrl = requestContent.split(" ")[1];
+    final String requestContent = eventRequest.getEvent().getMessage().getContent();
+
+    MessageContent messageContent = gson.fromJson(requestContent, MessageContent.class);
+    log.info("Received request content: {}", messageContent.getText());
+    final String deploymentPipelineUrl = messageContent.getText().split(" ")[1];
+
     if (!isPipelineUrlValid(deploymentPipelineUrl)) {
       log.debug("Invalid deployment pipeline URL: {}", deploymentPipelineUrl);
       return Map.of("message", "Invalid deployment pipeline URL");
