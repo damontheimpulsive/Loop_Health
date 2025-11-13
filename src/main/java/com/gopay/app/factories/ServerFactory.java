@@ -67,10 +67,10 @@ public class ServerFactory {
     private static OkHttpClient getJiraApiHttpClient() {
 
         return new OkHttpClient.Builder()
-                .readTimeout(5000, TimeUnit.MILLISECONDS)
-                .writeTimeout(5000, TimeUnit.MILLISECONDS)
-                .connectTimeout(5000, TimeUnit.MILLISECONDS)
-                .retryOnConnectionFailure(false)
+                .readTimeout(50000, TimeUnit.MILLISECONDS)
+                .writeTimeout(50000, TimeUnit.MILLISECONDS)
+                .connectTimeout(50000, TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(true)
                 .build();
     }
 
