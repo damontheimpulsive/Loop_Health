@@ -18,7 +18,7 @@ public class LarkClient {
 
     public boolean sendReply(String messageId, String token, String body) throws Exception {
         return this.larkClientInterface.sendReply(
-                "Bearer " + token,
+                "Bearer t-g206bddaXKNX3KLC5KK6ZMXTJEI4YDTTMXRHLD32",
                 messageId,
                 new ReplyContract("text", body)
         ).execute().isSuccessful();
