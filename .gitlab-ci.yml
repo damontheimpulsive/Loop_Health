@@ -2,7 +2,7 @@ image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/cx-java:
 include:
 - local: /_deployments/gitlab/integration.yml
 variables:
-    GOPAYSH_IMAGE: asia.gcr.io/your-image-registry/pacman-bot:${CI_COMMIT_SHORT_SHA}
+    GOPAYSH_IMAGE: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/pacman-bot:${CI_COMMIT_SHORT_SHA}
 stages:
   - artefact-build
   - deploy
