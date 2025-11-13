@@ -13,6 +13,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,12 +26,25 @@ public class JiraService {
     public String executeJIRAIntegration() throws IOException {
 
 
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), createRequestBody());
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"),
+                createRequestBody()
+        );
+
+        String apiToken =
+                "ATATT3xFfGF0SnPmGHQz6odT5qc3e5NgJzijhAvFT4d9Coi0zBCPyiv1yMi3K1M1GAmZuQ_SnsM1o3RF_" +
+                        "JilHgozdnSi3byUVw5mW7sjXTJNgVBw-K6pOcauDvuxRDX6xMNxq-al7weojjIdoGOph7KbF4C63G1eUYJqEwaHHpp_tyM6vsY7u4A=C06DB178";
+
+        String auth = "sumit.kandoi@gojek.com" + ":" + apiToken;
+
+        String basicAuth = Base64.getEncoder()
+                .encodeToString(auth.getBytes(StandardCharsets.UTF_8));
 
         Call<GenericResponse<ResponseBody>> call = jiraApiInterface.createIssue(
-                "Basic ATATT3xFfGF0SnPmGHQz6odT5qc3e5NgJzijhAvFT4d9Coi0zBCPyiv1yMi3K1M1GAmZuQ_SnsM1o3RF_JilHgozdnSi3byUVw5mW7sjXTJNgVBw-K6pOcauDvuxRDX6xMNxq-al7weojjIdoGOph7KbF4C63G1eUYJqEwaHHpp_tyM6vsY7u4A=C06DB178",
+                "Basic " + basicAuth,   // ✔️ Add space
                 body
         );
+
 
         Response response = call.execute().raw();
 
