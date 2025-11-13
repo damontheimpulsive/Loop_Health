@@ -20,7 +20,7 @@ public class LarkClient {
         return this.larkClientInterface.sendReply(
                 "Bearer t-g206bddaXKNX3KLC5KK6ZMXTJEI4YDTTMXRHLD32",
                 messageId,
-                new ReplyContract("text", body)
+                new ReplyContract("text", new ReplyContract.Content(body))
         ).execute().isSuccessful();
     }
 }

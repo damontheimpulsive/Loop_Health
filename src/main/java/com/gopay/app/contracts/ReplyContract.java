@@ -7,5 +7,10 @@ import lombok.Data;
 @Data
 public class ReplyContract {
     private String msgType;
-    private String content;
+    private Content content;
+
+    @AllArgsConstructor
+    public static class Content {
+        private String text;
+    }
 }
