@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.gopay.app.Server;
 import com.gopay.app.controllers.ChallengeController;
+import com.gopay.app.controllers.HealthCheckController;
 import com.gopay.app.controllers.PacmanController;
 
 public class ServerFactory {
@@ -13,6 +14,7 @@ public class ServerFactory {
                         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                         .create();
         return Server.builder()
+                .healthCheckController(new HealthCheckController())
                 .challengeController(new ChallengeController(gson))
                 .pacmanController(new PacmanController(gson))
                 .build();
