@@ -2,6 +2,7 @@ package com.gopay.app.controllers;
 
 import com.gopay.app.contracts.GitlabResponse;
 import com.gopay.app.models.GitlabCompareResponse;
+import com.gopay.app.models.GitlabLastDeploymentInfoResponse;
 import com.gopay.app.services.GitlabService;
 import com.gopay.app.models.GitlabPipelineResponse;
 import spark.Request;
@@ -42,6 +43,17 @@ public class GitlabController {
         String deployPipelineLink = req.queryParams("deployPipelineLink");
         try {
             GitlabResponse response = gitlabService.getCombinedGitlabInfo(deployPipelineLink);
+            return response;
+        } catch (Exception e) {
+            res.status(500);
+            return Collections.singletonMap("error", e.getMessage());
+        }
+    }
+    public Object getLastDeploymentWebUrlAndSha(Request req, Response res) {
+        String project = req.queryParams("project");
+        long environmentId = Long.parseLong(req.queryParams("environmentId"));
+        try {
+            GitlabLastDeploymentInfoResponse response = gitlabService.getLastDeploymentWebUrlAndSha(project, environmentId);
             return response;
         } catch (Exception e) {
             res.status(500);
