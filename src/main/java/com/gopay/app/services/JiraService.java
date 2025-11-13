@@ -48,7 +48,9 @@ public class JiraService {
 
 
         } else {
-            log.error("Error: " + response.message());
+            log.error("Error responseCode : {} ",  response.code());
+            assert response.body() != null;
+            log.error("Error response body: {} ", response.body().string());
         }
 
 
@@ -62,7 +64,7 @@ public class JiraService {
                 "{\n" +
                         "  \"fields\": {\n" +
                         "    \"project\": { \"key\": \"PACMAN\" },\n" +
-                        "    \"summary\": \"merchant-adapter deployment\",\n" +
+                        "    \"summary\": \"Authorization-service Production Deployment\",\n" +
                         "    \"description\": {\n" +
                         "      \"type\": \"doc\",\n" +
                         "      \"version\": 1,\n" +
@@ -79,14 +81,14 @@ public class JiraService {
                         "    \"customfield_14506\": { \"id\": \"15288\" },\n" +
                         "    \"customfield_14636\": { \"id\": \"16187\" },\n" +
                         "    \"customfield_14614\": [ { \"id\": \"15620\" } ],\n" +
-                        "    \"customfield_14495\": \"https://git.example.com/repo/compare/commitA...commitB\",\n" +
+                        "    \"customfield_14495\": \"https://source.golabs.io/gopay/authorization_service/-/compare/v7.11.0...v7.12.0?from_project_id=12649\",\n" +
                         "    \"customfield_14498\": {\n" +
                         "      \"type\": \"doc\",\n" +
                         "      \"version\": 1,\n" +
                         "      \"content\": [\n" +
                         "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"Changelog:\" } ] },\n" +
-                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- Added feature X\" } ] },\n" +
-                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- Fixed bug Y\" } ] },\n" +
+                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- https://go-jek.atlassian.net/browse/ONLINE-3406\" } ] },\n" +
+                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- https://go-jek.atlassian.net/browse/ONLINE-3321\" } ] },\n" +
                         "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- Notes: deploy during off-peak hours\" } ] }\n" +
                         "      ]\n" +
                         "    },\n" +
@@ -98,7 +100,7 @@ public class JiraService {
                         "    ],\n" +
                         "    \"customfield_14755\": { \"id\": \"16342\" },\n" +
                         "    \"customfield_14635\": { \"id\": \"16157\" },\n" +
-                        "    \"customfield_14797\": \"2025-11-13\",\n" +
+                        "    \"customfield_14797\": \"2025-11-14\",\n" +
                         "    \"customfield_14501\": { \"id\": \"15278\" }\n" +
                         "  }\n" +
                         "}";
