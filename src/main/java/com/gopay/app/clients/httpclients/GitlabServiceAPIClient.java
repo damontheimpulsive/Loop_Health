@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GitlabServiceAPIClient {
     private final GitlabServiceInterface gitlabServiceInterface;
     private static final String BASE_URL = "https://source.golabs.io";
-    private static final String PRIVATE_TOKEN = "ACCESS_TOKEN";
+    private static final String PRIVATE_TOKEN = "TOKEN";
 
     public GitlabServiceAPIClient() {
         Retrofit retrofit = new Retrofit.Builder()

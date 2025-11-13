@@ -2,6 +2,7 @@ package com.gopay.app;
 
 import com.google.gson.Gson;
 import com.gopay.app.controllers.EventController;
+import com.gopay.app.controllers.GitlabController;
 import com.gopay.app.controllers.HealthCheckController;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import static spark.Spark.*;
 public class Server {
     private final HealthCheckController healthCheckController;
     private final EventController eventController;
+    private final GitlabController gitlabController;
     private final Gson gson;
 
     public void start() {
@@ -38,5 +40,6 @@ public class Server {
 
         // Application specific APIs
         post("/events", eventController::handle, gson::toJson);
+        get("/gitlab/pipeline", gitlabController::getGitlabPipeline, gson::toJson);
     }
 }
