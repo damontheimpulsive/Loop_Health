@@ -4,9 +4,8 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.gopay.app.Server;
-import com.gopay.app.controllers.ChallengeController;
+import com.gopay.app.controllers.EventController;
 import com.gopay.app.controllers.HealthCheckController;
-import com.gopay.app.controllers.PacmanController;
 
 public class ServerFactory {
     public static Server createAPIServer() {
@@ -15,8 +14,7 @@ public class ServerFactory {
                         .create();
         return Server.builder()
                 .healthCheckController(new HealthCheckController())
-                .challengeController(new ChallengeController(gson))
-                .pacmanController(new PacmanController(gson))
+                .eventController(new EventController(gson))
                 .gson(gson)
                 .build();
     }

@@ -63,7 +63,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
     testCompileOnly 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
-
+    implementation 'com.larksuite.oapi:oapi-sdk:2.4.25'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.12.4'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
