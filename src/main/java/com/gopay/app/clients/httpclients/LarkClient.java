@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LarkClient {
     private final LarkClientInterface larkClientInterface;
-    private static final String BASE_URL = "https://open.larksuite.com/open-apis/im";
+    private static final String BASE_URL = "https://open.larksuite.com/open-apis/im/";
 
     public LarkClient() {
         Retrofit retrofit = new Retrofit.Builder()
