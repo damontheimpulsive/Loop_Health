@@ -14,7 +14,7 @@ public class GitlabController {
     }
 
     public Object getGitlabPipeline(Request req, Response res) {
-        String project = req.queryParams("gopay%2Fauthorization_service");
+        String project = req.queryParams("project");
         long pipelineId = Long.parseLong(req.queryParams("pipelineId"));
         try {
             GitlabPipelineResponse response = gitlabService.getGitlabPipeline(project, pipelineId);
