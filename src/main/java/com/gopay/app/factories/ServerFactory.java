@@ -29,7 +29,7 @@ public class ServerFactory {
 
     public static Server createAPIServer() {
 
-        final ApplicationConfiguration configuration = Figaro.configure(Set.of("8080"));
+        final ApplicationConfiguration configuration = Figaro.configure(Set.of());
 
         final Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
