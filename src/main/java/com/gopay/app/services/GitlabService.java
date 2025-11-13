@@ -28,22 +28,22 @@ public class GitlabService {
 
     public GitlabResponse getCombinedGitlabInfo(String deployPipelineLink) throws Exception {
 
-        //long environmentId = 11170; hardcoded environment ID for AS
-        int serviceStart = deployPipelineLink.indexOf("gopay/") + "gopay/".length();
-        int serviceEnd = deployPipelineLink.indexOf("/-/pipelines/");
-        if (serviceStart == -1 || serviceEnd == -1 || serviceEnd <= serviceStart) {
-            throw new IllegalArgumentException("Invalid pipeline link format");
-        }
-        String serviceName = deployPipelineLink.substring(serviceStart, serviceEnd);
-        //String project = "gopay%2Fauthorization_service"; hardcoded for AS
-        String project = "gopay%2F" + serviceName;
+        long environmentId = 11170; //hardcoded environment ID for AS
+//        int serviceStart = deployPipelineLink.indexOf("gopay/") + "gopay/".length();
+//        int serviceEnd = deployPipelineLink.indexOf("/-/pipelines/");
+//        if (serviceStart == -1 || serviceEnd == -1 || serviceEnd <= serviceStart) {
+//            throw new IllegalArgumentException("Invalid pipeline link format");
+//        }
+//        String serviceName = deployPipelineLink.substring(serviceStart, serviceEnd);
+        String project = "gopay%2Fauthorization_service";// hardcoded for AS
+        //String project = "gopay%2F" + serviceName;
 
-        List<GitlabEnvironment> environments = gitlabServiceAPIClient.getEnvironments(project);
-        long environmentId = environments.stream()
-                .filter(env -> "production".equalsIgnoreCase(env.getName()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Production environment not found"))
-                .getId();
+//        List<GitlabEnvironment> environments = gitlabServiceAPIClient.getEnvironments(project);
+//        long environmentId = environments.stream()
+//                .filter(env -> "production".equalsIgnoreCase(env.getName()))
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalStateException("Production environment not found"))
+//                .getId();
 
         int idx = deployPipelineLink.lastIndexOf("/pipelines/");
         if (idx == -1) {
