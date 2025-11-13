@@ -23,14 +23,19 @@ public class GitlabService {
         return gitlabServiceAPIClient.getEnvironment(project, environmentId);
     }
 
-    public GitlabResponse getCombinedGitlabInfo(long pipelineId) throws Exception {
+    public GitlabResponse getCombinedGitlabInfo(String deployPipelineLink) throws Exception {
         String project = "gopay%2Fauthorization_service";
         long environmentId = 11170;
 
+        int idx = deployPipelineLink.lastIndexOf("/pipelines/");
+        if (idx == -1) {
+            throw new IllegalArgumentException("Invalid pipeline link format");
+        }
+        String idStr = deployPipelineLink.substring(idx + "/pipelines/".length());
+        long pipelineId = Long.parseLong(idStr);
+
         GitlabPipelineResponse pipelineResponse = getGitlabPipeline(project, pipelineId);
-
         GitlabLastDeploymentInfoResponse lastDeployment = getLastDeploymentWebUrlAndSha(project, environmentId);
-
         GitlabCompareResponse compareResponse = compareCommits(
                 project,
                 lastDeployment.getSha(),
