@@ -32,7 +32,7 @@ public class LarkClient {
                 .url("https://open.larksuite.com/open-apis/im/v1/messages/om_x100b5e6a5d2a88a0e2d8de3984002f7/reply")
                 .method("POST",createRequestBody(body))
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer t-g206bdgCQ7UYNYITUANPLIIGO3OJYETT53AZUJST")
+                .addHeader("Authorization", "Bearer t-g206bdiXUFUQYSLVWKUZLDYX7FV4SSAMJI3AY7PC")
                 .build();
         Response larkResponse = new OkHttpClient().newBuilder().build().newCall(request).execute();
 
