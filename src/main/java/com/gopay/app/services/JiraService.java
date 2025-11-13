@@ -19,20 +19,6 @@ import java.io.IOException;
 public class JiraService {
 
     private final JiraApiInterface jiraApiInterface;
-    private final Gson gson;
-
-    String apmLink = "https://katulampa.golabs.io/d/besyeicntab5sd/service?orgId=1&var-cluster_name=al-gp-id-p-01&var-datasource=000000001&var-env=production&var-service=authorization-service-app-gsh&var-interval=1m&from=now-3h&to=now&timezone=browser&var-newrelic_datasource=feuxnv85t73swe&var-outbound_service=$__all&var-pg_app_name=$__all&var-service_shortname=authorization-service&var-mongo_app_name=$__all&var-redis_app_name=$__all&var-rabbitmq_app_name=$__all&var-rabbitmq_cluster_name=$__all&var-apdex_lower_latency=250&var-apdex_upper_latency=1000&var-namespace=payments-experience&var-barito_app_group_name=guto&var-bad_http_status_code=4..%7C5..&var-newrelic_guid=MjA3MTA4NHxBUE18QVBQTElDQVRJT058NTIzMjA5Njg4&var-newrelic_account_id=2071084&var-newrelic_transactions=$__all&var-pods=$__all&refresh=5m";
-
-    String katulampaLink = "https://katulampa.golabs.io/d/Iicq0uc7k/authorization-service?var-interval=$__auto&orgId=1&from=now-24h&to=now&timezone=Asia%2FKolkata&var-env=production&var-merchant_name=$__all&var-error_code=$__all&refresh=5m";
-
-    String baritoLink = "https://barito-viewer.golabs.io/togu/goto/86e31150-c09a-11f0-acd1-ed09208ebeb6";
-
-    String compareLink = "https://source.golabs.io/gopay/authorization_service/-/compare/v7.11.0...v7.12.0?from_project_id=12649";
-
-    String pipeline1 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12936112";
-    String pipeline2 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12896592";
-
-    String diffLink = "https://yggdrasil.teleport-proxy.apps.gtflabs.io/ui/v2/authorization_service/diff?first_tag=production&first_version=0.667.6&second_tag=production&second_version=0.667.13";
 
 
     public String executeJIRAIntegration() throws IOException {
@@ -72,6 +58,19 @@ public class JiraService {
     }
 
     private String createRequestBody() {
+
+        String apmLink = "https://katulampa.golabs.io/d/besyeicntab5sd/service?orgId=1&var-cluster_name=al-gp-id-p-01&var-datasource=000000001&var-env=production&var-service=authorization-service-app-gsh&var-interval=1m&from=now-3h&to=now&timezone=browser&var-newrelic_datasource=feuxnv85t73swe&var-outbound_service=$__all&var-pg_app_name=$__all&var-service_shortname=authorization-service&var-mongo_app_name=$__all&var-redis_app_name=$__all&var-rabbitmq_app_name=$__all&var-rabbitmq_cluster_name=$__all&var-apdex_lower_latency=250&var-apdex_upper_latency=1000&var-namespace=payments-experience&var-barito_app_group_name=guto&var-bad_http_status_code=4..%7C5..&var-newrelic_guid=MjA3MTA4NHxBUE18QVBQTElDQVRJT058NTIzMjA5Njg4&var-newrelic_account_id=2071084&var-newrelic_transactions=$__all&var-pods=$__all&refresh=5m";
+
+        String katulampaLink = "https://katulampa.golabs.io/d/Iicq0uc7k/authorization-service?var-interval=$__auto&orgId=1&from=now-24h&to=now&timezone=Asia%2FKolkata&var-env=production&var-merchant_name=$__all&var-error_code=$__all&refresh=5m";
+
+        String baritoLink = "https://barito-viewer.golabs.io/togu/goto/86e31150-c09a-11f0-acd1-ed09208ebeb6";
+
+        String compareLink = "https://source.golabs.io/gopay/authorization_service/-/compare/v7.11.0...v7.12.0?from_project_id=12649";
+
+        String pipeline1 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12936112";
+        String pipeline2 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12896592";
+
+        String diffLink = "https://yggdrasil.teleport-proxy.apps.gtflabs.io/ui/v2/authorization_service/diff?first_tag=production&first_version=0.667.6&second_tag=production&second_version=0.667.13";
 
         String json =
 
