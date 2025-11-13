@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
@@ -50,7 +49,8 @@ public class JiraService {
 
 
         if (response.isSuccessful()) {
-            log.info("JIRA response is successful", response.body().toString());
+            assert response.body() != null;
+            log.info("JIRA response is successful", response.body());
 
             Gson gson = new Gson();
             JiraResponse jiraResponse = gson.fromJson(response.body().toString(), JiraResponse.class);
@@ -64,8 +64,8 @@ public class JiraService {
 
         } else {
             log.error("Error responseCode : {} ",  response.code());
-            assert response.body() != null;
-            log.error("Error response body: {} ", response.body().toString());
+            assert response.errorBody() != null;
+            log.error("Error response body: {} ", response.errorBody());
         }
 
 
