@@ -1,10 +1,13 @@
 package com.gopay.app.clients.httpclients;
 
 import com.gopay.app.models.GitlabCompareResponse;
+import com.gopay.app.models.GitlabEnvironment;
 import com.gopay.app.models.GitlabLastDeploymentInfoResponse;
 import com.gopay.app.models.GitlabPipelineResponse;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.util.List;
 
 public class GitlabServiceAPIClient {
     private final GitlabServiceInterface gitlabServiceInterface;
@@ -30,4 +33,8 @@ public class GitlabServiceAPIClient {
     public GitlabLastDeploymentInfoResponse getEnvironment(String project, long environmentId) throws Exception {
         return gitlabServiceInterface.getLastDeployment(privateToken, project, environmentId).execute().body();
     }
+    public List<GitlabEnvironment> getEnvironments(String project) throws Exception {
+        return gitlabServiceInterface.getEnvironments(privateToken, project).execute().body();
+    }
+
 }

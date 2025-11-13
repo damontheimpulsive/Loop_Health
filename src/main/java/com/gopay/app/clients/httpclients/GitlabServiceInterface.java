@@ -2,6 +2,7 @@ package com.gopay.app.clients.httpclients;
 
 
 import com.gopay.app.models.GitlabCompareResponse;
+import com.gopay.app.models.GitlabEnvironment;
 import com.gopay.app.models.GitlabLastDeploymentInfoResponse;
 import com.gopay.app.models.GitlabPipelineResponse;
 import retrofit2.Call;
@@ -9,6 +10,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+
+import java.util.List;
 
 public interface GitlabServiceInterface {
     @GET("/api/v4/projects/{project}/pipelines/{pipelineId}")
@@ -30,5 +33,10 @@ public interface GitlabServiceInterface {
             @Header("PRIVATE-TOKEN") String privateToken,
             @Path("project") String project,
             @Path("environmentId") long environmentId
+    );
+    @GET("/api/v4/projects/{project}/environments")
+    Call<List<GitlabEnvironment>> getEnvironments(
+            @Header("PRIVATE-TOKEN") String privateToken,
+            @Path("project") String project
     );
 }
