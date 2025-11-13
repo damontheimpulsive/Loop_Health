@@ -20,15 +20,14 @@ public class GitlabService {
         return gitlabServiceAPIClient.compareCommits(project, fromCommit, toCommit);
     }
     public GitlabLastDeploymentInfoResponse getLastDeploymentWebUrlAndSha(String project, long environmentId) throws Exception {
-        GitlabEnvironmentResponse envResponse = gitlabServiceAPIClient
-                .getEnvironmentResponse(project, environmentId);
+        GitlabEnvironmentResponse envResponse = gitlabServiceAPIClient.getEnvironmentResponse(project, environmentId);
 
         GitlabLastDeploymentInfoResponse result = new GitlabLastDeploymentInfoResponse();
         if (envResponse != null && envResponse.getLastDeployment() != null) {
             result.setSha(envResponse.getLastDeployment().getSha());
-            GitlabEnvironmentResponse.LastDeployment.Pipeline pipeline = envResponse.getLastDeployment().getPipeline();
-            if (pipeline != null) {
-                result.setWebUrl(pipeline.getWebUrl());
+            GitlabEnvironmentResponse.LastDeployment.Deployable deployable = envResponse.getLastDeployment().getDeployable();
+            if (deployable != null && deployable.getPipeline() != null) {
+                result.setWebUrl(deployable.getPipeline().getWebUrl());
             }
         }
         return result;

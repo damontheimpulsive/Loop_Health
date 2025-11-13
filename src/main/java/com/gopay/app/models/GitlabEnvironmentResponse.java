@@ -11,12 +11,17 @@ public class GitlabEnvironmentResponse {
     @Data
     public static class LastDeployment {
         private String sha;
-        private Pipeline pipeline;
+        private Deployable deployable;
 
         @Data
-        public static class Pipeline {
-            @SerializedName("web_url")
-            private String webUrl;
+        public static class Deployable {
+            private Pipeline pipeline;
+
+            @Data
+            public static class Pipeline {
+                @SerializedName("web_url")
+                private String webUrl;
+            }
         }
     }
 }
