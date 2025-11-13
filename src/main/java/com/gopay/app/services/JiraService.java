@@ -20,6 +20,7 @@ import java.util.Base64;
 public class JiraService {
 
     private final JiraApiInterface jiraApiInterface;
+    private final Gson gson;
 
 
     public String executeJIRAIntegration() throws IOException {
@@ -49,13 +50,13 @@ public class JiraService {
 
 
         if (response.isSuccessful()) {
-            assert response.body() != null;
-            log.info("JIRA response is successful", response.body());
 
-            Gson gson = new Gson();
+            assert response.body() != null;
+            log.info("JIRA response is successful", response.body().toString());
+
             JiraResponse jiraResponse = gson.fromJson(response.body().toString(), JiraResponse.class);
 
-            log.info("JIRA response after GSON deserialize", jiraResponse);
+            log.info("JIRA response after GSON deserialize", jiraResponse.toString());
 
             String browseUrl = "https://go-jek.atlassian.net/browse/" + jiraResponse.getKey();
 

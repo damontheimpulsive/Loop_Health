@@ -42,7 +42,7 @@ public class ServerFactory {
 
 
         final JiraApiInterface jiraApiClientInterface = createJiraApiClientInterface(gson);
-        final JiraService jiraService = new JiraService(jiraApiClientInterface);
+        final JiraService jiraService = new JiraService(jiraApiClientInterface, gson);
 
 
         return Server.builder()
