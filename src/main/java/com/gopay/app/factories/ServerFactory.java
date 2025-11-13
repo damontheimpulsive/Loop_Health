@@ -8,6 +8,15 @@ import com.gopay.app.clients.httpclients.LarkClient;
 import com.gopay.app.controllers.EventController;
 import com.gopay.app.controllers.GitlabController;
 import com.gopay.app.controllers.HealthCheckController;
+import com.gopay.app.controllers.PacmanController;
+import com.gopay.app.interfaces.JiraApiInterface;
+import com.gopay.app.services.JiraService;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import com.gopay.app.services.LarkService;
 import com.gopay.app.services.PacmanCreationService;
 import com.gopay.app.services.GitlabService;
@@ -16,8 +25,12 @@ import com.gojek.ApplicationConfiguration;
 import com.gojek.Figaro;
 
 public class ServerFactory {
+
+
     public static Server createAPIServer() {
-        final ApplicationConfiguration configuration = Figaro.configure(null);
+
+        final ApplicationConfiguration configuration = Figaro.configure(Set.of("8080"));
+
         final Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
@@ -27,11 +40,40 @@ public class ServerFactory {
         final GitlabService gitlabService = new GitlabService(gitlabServiceAPIClient);
         final GitlabController gitlabController = new GitlabController(gitlabService);
 
+
+
+        final JiraApiInterface jiraApiClientInterface = createJiraApiClientInterface(gson);
+        final JiraService jiraService = new JiraService(jiraApiClientInterface, gson);
+
+
         return Server.builder()
                 .healthCheckController(new HealthCheckController())
                 .eventController(new EventController(gson, new PacmanCreationService(), new LarkService(new LarkClient())))
                 .gitlabController(gitlabController)
+                .pacmanController(new PacmanController(gson, jiraService))
                 .gson(gson)
                 .build();
     }
+
+
+    private static JiraApiInterface createJiraApiClientInterface(final Gson gson) {
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl("https://go-jek.atlassian.net")
+                .client(getJiraApiHttpClient())
+                .build();
+        return retrofit.create(JiraApiInterface.class);
+    }
+
+    private static OkHttpClient getJiraApiHttpClient() {
+
+        return new OkHttpClient.Builder()
+                .readTimeout(5000, TimeUnit.MILLISECONDS)
+                .writeTimeout(5000, TimeUnit.MILLISECONDS)
+                .connectTimeout(5000, TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(false)
+                .build();
+    }
+
 }
