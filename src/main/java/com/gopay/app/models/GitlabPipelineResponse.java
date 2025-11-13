@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class GitlabPipelineResponse {
     private String sha;
+    private String webUrl;
 }
