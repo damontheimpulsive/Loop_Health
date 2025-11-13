@@ -1,12 +1,19 @@
-// TODO Please change the package name as necessary
 package com.gopay.app;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import com.gopay.app.factories.ServerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Server server = ServerFactory.createAPIServer();
+        server.start();
+        Runtime.getRuntime()
+                .addShutdownHook(
+                        new Thread(
+                                () -> {
+                                    log.info("Running Shutdown hook...");
+                                    server.stop();
+                                }));
     }
 }
