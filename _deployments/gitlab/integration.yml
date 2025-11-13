@@ -39,5 +39,8 @@ deploy:
       --cluster go-gp-eks-01
       --env staging-secondary
       --image ${GOPAYSH_IMAGE}
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
   tags:
     - gopaysh
