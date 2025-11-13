@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
-    <jmxConfigurator />
-    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator" />
 
-    <property file="src/main/resources/application.yml" />
+    <jmxConfigurator/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        </encoder>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
 
-    <logger name="com.gopay.app" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
+    <logger name="com.gopay.web.apis" level="${LOG_LEVEL}" additivity="false">
+        <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="org.eclipse.jetty.server.session" level="ERROR" additivity="false">
-        <appender-ref ref="STDOUT" />
+    <logger name="com.gopay" level="${GOPAY_LOG_LEVEL}" additivity="false">
+        <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="com.gopay" level="INFO" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
-
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
+    <root level="${ROOT_LOG_LEVEL}">
+        <appender-ref ref="STDOUT"/>
     </root>
+
 </configuration>
