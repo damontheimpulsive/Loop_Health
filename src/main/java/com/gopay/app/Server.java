@@ -16,7 +16,7 @@ public class Server {
 
     public void start() {
         log.info("Starting Spark REST API server......");
-        port(8000);
+        port(8080);
         setupEndpoints();
         before("/*", (request, response) -> response.type("application/json;charset=utf-8"));
     }

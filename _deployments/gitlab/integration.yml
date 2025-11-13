@@ -37,7 +37,7 @@ deploy:
   script:
     - gopaysh deployment create gopay-web-apis-app-gsh
       --cluster go-gp-eks-01
-      --env staging
+      --env staging-secondary
       --image ${GOPAYSH_IMAGE}
   tags:
     - gopaysh
