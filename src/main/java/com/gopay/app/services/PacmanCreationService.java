@@ -1,8 +1,19 @@
 package com.gopay.app.services;
 
-public class PacmanCreationService {
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-    public String createPacman(final String deploymentPipelineUrl) {
-        return "http://temp-url";
+import java.io.IOException;
+
+@Slf4j
+@AllArgsConstructor
+public class PacmanCreationService {
+    private final JiraService jiraService;
+
+    public String createPacman(final String deploymentPipelineUrl) throws IOException {
+        log.info("Handling create pacman request {}");
+        String pacmanTicketURL =  jiraService.executeJIRAIntegration();
+        log.info("Pacman Ticket URL: {}", pacmanTicketURL);
+        return pacmanTicketURL;
     }
 }

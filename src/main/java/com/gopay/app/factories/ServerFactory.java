@@ -8,7 +8,6 @@ import com.gopay.app.clients.httpclients.LarkClient;
 import com.gopay.app.controllers.EventController;
 import com.gopay.app.controllers.GitlabController;
 import com.gopay.app.controllers.HealthCheckController;
-import com.gopay.app.controllers.PacmanController;
 import com.gopay.app.interfaces.JiraApiInterface;
 import com.gopay.app.services.JiraService;
 import okhttp3.OkHttpClient;
@@ -48,9 +47,8 @@ public class ServerFactory {
 
         return Server.builder()
                 .healthCheckController(new HealthCheckController())
-                .eventController(new EventController(gson, new PacmanCreationService(), new LarkService(new LarkClient())))
+                .eventController(new EventController(gson, new PacmanCreationService(jiraService), new LarkService(new LarkClient())))
                 .gitlabController(gitlabController)
-                .pacmanController(new PacmanController(gson, jiraService))
                 .gson(gson)
                 .build();
     }
