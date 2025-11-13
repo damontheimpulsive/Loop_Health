@@ -2,10 +2,7 @@ package com.gopay.app.services;
 
 import com.gopay.app.clients.httpclients.GitlabServiceAPIClient;
 import com.gopay.app.contracts.GitlabResponse;
-import com.gopay.app.models.GitlabCompareResponse;
-import com.gopay.app.models.GitlabEnvironment;
-import com.gopay.app.models.GitlabLastDeploymentInfoResponse;
-import com.gopay.app.models.GitlabPipelineResponse;
+import com.gopay.app.models.*;
 
 import java.util.List;
 
@@ -23,7 +20,18 @@ public class GitlabService {
         return gitlabServiceAPIClient.compareCommits(project, fromCommit, toCommit);
     }
     public GitlabLastDeploymentInfoResponse getLastDeploymentWebUrlAndSha(String project, long environmentId) throws Exception {
-        return gitlabServiceAPIClient.getEnvironment(project, environmentId);
+        GitlabEnvironmentResponse envResponse = gitlabServiceAPIClient
+                .getEnvironmentResponse(project, environmentId);
+
+        GitlabLastDeploymentInfoResponse result = new GitlabLastDeploymentInfoResponse();
+        if (envResponse != null && envResponse.getLastDeployment() != null) {
+            result.setSha(envResponse.getLastDeployment().getSha());
+            GitlabEnvironmentResponse.LastDeployment.Pipeline pipeline = envResponse.getLastDeployment().getPipeline();
+            if (pipeline != null) {
+                result.setWebUrl(pipeline.getWebUrl());
+            }
+        }
+        return result;
     }
 
     public GitlabResponse getCombinedGitlabInfo(String deployPipelineLink) throws Exception {
