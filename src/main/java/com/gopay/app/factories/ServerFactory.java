@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.gopay.app.Server;
 import com.gopay.app.controllers.EventController;
 import com.gopay.app.controllers.HealthCheckController;
+import com.gopay.app.services.PacmanCreationService;
 
 public class ServerFactory {
     public static Server createAPIServer() {
@@ -14,7 +15,7 @@ public class ServerFactory {
                         .create();
         return Server.builder()
                 .healthCheckController(new HealthCheckController())
-                .eventController(new EventController(gson))
+                .eventController(new EventController(gson, new PacmanCreationService()))
                 .gson(gson)
                 .build();
     }

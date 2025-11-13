@@ -2,6 +2,7 @@ package com.gopay.app.controllers;
 
 import com.google.gson.Gson;
 import com.gopay.app.contracts.ChallengeRequest;
+import com.gopay.app.services.PacmanCreationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import spark.Request;
@@ -13,6 +14,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class EventController {
   private final Gson gson;
+  private final PacmanCreationService pacmanCreationService;
 
   public Map<String, String> handle(Request req, Response res) {
     log.info("Handling request {}", req.body());
@@ -25,6 +27,8 @@ public class EventController {
       return Map.of("challenge", challengeRequest.getChallenge());
     }
     log.info("Received unknown event type {}", eventType);
-    return Map.of();
+
+    pacmanCreationService.createPacman(null);
+    return Map.of("message", "ok");
   }
 }
