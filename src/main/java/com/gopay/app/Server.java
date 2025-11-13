@@ -43,5 +43,6 @@ public class Server {
         // Application specific APIs
         post("/events", eventController::handle, gson::toJson);
         get("/gitlab/pipeline", gitlabController::getGitlabPipeline, gson::toJson);
+        get("/gitlab/compare", gitlabController::compareCommits, gson::toJson);
     }
 }
