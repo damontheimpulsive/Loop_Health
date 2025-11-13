@@ -45,7 +45,7 @@ public class GitlabService {
         GitlabResponse response = new GitlabResponse();
         response.setDeployPipelineLink(pipelineResponse.getWebUrl());
         response.setRollbackPipelineLink(lastDeployment.getWebUrl());
-        response.setCommitDiffs(compareResponse.getWeb_url());
+        response.setCommitDiffs(compareResponse.getWebUrl());
         return response;
     }
 }
