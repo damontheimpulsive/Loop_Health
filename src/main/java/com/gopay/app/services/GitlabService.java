@@ -24,8 +24,16 @@ public class GitlabService {
     }
 
     public GitlabResponse getCombinedGitlabInfo(String deployPipelineLink) throws Exception {
-        String project = "gopay%2Fauthorization_service";
         long environmentId = 11170;
+
+        int serviceStart = deployPipelineLink.indexOf("gopay/") + "gopay/".length();
+        int serviceEnd = deployPipelineLink.indexOf("/-/pipelines/");
+        if (serviceStart == -1 || serviceEnd == -1 || serviceEnd <= serviceStart) {
+            throw new IllegalArgumentException("Invalid pipeline link format");
+        }
+        String serviceName = deployPipelineLink.substring(serviceStart, serviceEnd);
+
+        String project = "gopay%2F" + serviceName;
 
         int idx = deployPipelineLink.lastIndexOf("/pipelines/");
         if (idx == -1) {
