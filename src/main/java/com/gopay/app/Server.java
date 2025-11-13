@@ -3,7 +3,9 @@ package com.gopay.app;
 import static spark.Spark.*;
 
 import com.google.gson.Gson;
+import com.gopay.app.controllers.ChallengeController;
 import com.gopay.app.controllers.HealthCheckController;
+import com.gopay.app.controllers.PacmanController;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import spark.Spark;
@@ -12,6 +14,8 @@ import spark.Spark;
 @Slf4j
 public class Server {
     private final HealthCheckController healthCheckController;
+    private final PacmanController pacmanController;
+    private final ChallengeController challengeController;
     private final Gson gson;
 
     public void start() {
@@ -28,13 +32,14 @@ public class Server {
 
     private void setupEndpoints() {
         // Health check endpoint
-        path(
-                "",
+        path("",
                 () -> {
                     get("/healthz", healthCheckController::checkReadiness, gson::toJson);
-                });
+                }
+        );
 
         // Application specific APIs
-        final String API_VERSION = "/api/v1";
+        post("/api/v1/challenge", challengeController::verifyChallenge, gson::toJson);
+        post("/api/v1/pacman", pacmanController::createPacman, gson::toJson);
     }
 }
