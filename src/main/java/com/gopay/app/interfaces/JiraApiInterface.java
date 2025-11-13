@@ -1,8 +1,7 @@
 package com.gopay.app.interfaces;
 
-import com.gopay.app.contracts.GenericResponse;
+import com.gopay.app.contracts.JiraResponse;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
@@ -17,7 +16,7 @@ public interface JiraApiInterface {
 
     @Headers({CONTENT_TYPE_APPLICATION_JSON})
     @POST("/rest/api/3/issue")
-    Call<GenericResponse<ResponseBody>> createIssue(
+    Call<JiraResponse> createIssue(
             @Header("Authorization") String basicAuth,
             @Body RequestBody body
     );

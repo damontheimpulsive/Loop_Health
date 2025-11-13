@@ -1,14 +1,12 @@
 package com.gopay.app.services;
 
 import com.google.gson.Gson;
-import com.gopay.app.contracts.GenericResponse;
 import com.gopay.app.contracts.JiraResponse;
 import com.gopay.app.interfaces.JiraApiInterface;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 import java.io.IOException;
@@ -40,13 +38,13 @@ public class JiraService {
         String basicAuth = Base64.getEncoder()
                 .encodeToString(auth.getBytes(StandardCharsets.UTF_8));
 
-        Call<GenericResponse<ResponseBody>> call = jiraApiInterface.createIssue(
+        Call<JiraResponse> call = jiraApiInterface.createIssue(
                 "Basic " + basicAuth,   // ✔️ Add space
                 body
         );
 
 
-        retrofit2.Response<GenericResponse<ResponseBody>> response = call.execute();
+        retrofit2.Response<JiraResponse> response = call.execute();
 
 
         if (response.isSuccessful()) {
@@ -54,7 +52,9 @@ public class JiraService {
             assert response.body() != null;
             log.info("JIRA response is successful", response.body().toString());
 
-            JiraResponse jiraResponse = gson.fromJson(response.body().toString(), JiraResponse.class);
+            JiraResponse jiraResponse = response.body();
+
+            // JiraResponse jiraResponse = gson.fromJson(response.body().toString(), JiraResponse.class);
 
             log.info("JIRA response after GSON deserialize", jiraResponse.toString());
 
@@ -64,7 +64,7 @@ public class JiraService {
 
 
         } else {
-            log.error("Error responseCode : {} ",  response.code());
+            log.error("Error responseCode : {} ", response.code());
             assert response.errorBody() != null;
             log.error("Error response body: {} ", response.errorBody());
         }
