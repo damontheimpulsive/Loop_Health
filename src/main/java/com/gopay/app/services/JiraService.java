@@ -46,14 +46,14 @@ public class JiraService {
         );
 
 
-        Response response = call.execute().raw();
+        retrofit2.Response<GenericResponse<ResponseBody>> response = call.execute();
 
 
         if (response.isSuccessful()) {
-            log.info("JIRA response is successful", response.body().string());
+            log.info("JIRA response is successful", response.body().toString());
 
             Gson gson = new Gson();
-            JiraResponse jiraResponse = gson.fromJson(response.body().string(), JiraResponse.class);
+            JiraResponse jiraResponse = gson.fromJson(response.body().toString(), JiraResponse.class);
 
             log.info("JIRA response after GSON deserialize", jiraResponse);
 
@@ -65,7 +65,7 @@ public class JiraService {
         } else {
             log.error("Error responseCode : {} ",  response.code());
             assert response.body() != null;
-            log.error("Error response body: {} ", response.body().string());
+            log.error("Error response body: {} ", response.body().toString());
         }
 
 
