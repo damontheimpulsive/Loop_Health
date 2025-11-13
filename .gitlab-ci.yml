@@ -4,6 +4,7 @@ include:
 variables:
     GOPAYSH_IMAGE: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/pacman-bot:${CI_COMMIT_SHORT_SHA}
 stages:
+  - build
   - artefact-build
   - deploy
 

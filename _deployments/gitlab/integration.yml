@@ -10,6 +10,52 @@
     - export GRADLE_USER_HOME=`pwd`/.gradle
 
 
+build:
+  <<: *gradle_home_setup
+  <<: *gradle_cache
+  stage: build
+  variables:
+    FF_NETWORK_PER_BUILD: "true"
+    APP_ENVIRONMENT: test
+    APP_PORT: 4000
+  script:
+    - APP_ENVIRONMENT=test ./gradlew build
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/TEST-*.xml
+    paths:
+      - build/reports/tests/
+      - build/reports/jacoco/
+  tags:
+    - gopay
+    - service
+
+pages:
+  stage: build
+  variables:
+    npm_config_cache: '.npm'
+  cache:
+    paths:
+      - doc/.npm
+      - doc/node_modules
+    key: "$CI_COMMIT_REF_SLUG-docs"
+  image:
+    name: node:10-alpine
+  before_script:
+    - cd doc
+    - npm install
+  script:
+    - 'npm run build'
+  after_script:
+    - 'mv doc/dist public'
+  artifacts:
+    paths:
+      - 'public'
+  tags:
+    - gopaysh
+  allow_failure: true
+
 artefact-build:
   image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/cx-gopay-packager:latest
   services:
@@ -27,9 +73,6 @@ artefact-build:
     - packager
   tags:
     - gopaysh
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: always
 
 deploy:
   image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/gopaysh:latest

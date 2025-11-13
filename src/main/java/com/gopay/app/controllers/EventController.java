@@ -21,15 +21,21 @@ public class EventController {
   private final LarkService larkService;
 
   public Map<String, String> handle(Request req, Response res) throws Exception {
+
     log.info("Handling request {}", req.body());
     final Map<String, Object> payload = gson.fromJson(req.body(), Map.class);
 
     final String eventType = (String) payload.get("type");
+
     if (eventType.equalsIgnoreCase("url_verification")) {
+
       log.info("Received URL verification event");
       final ChallengeRequest challengeRequest = gson.fromJson(req.body(), ChallengeRequest.class);
+
       return Map.of("challenge", challengeRequest.getChallenge());
     }
+
+
 
     log.info("Received unknown event type {}", eventType);
     final LarkEventRequest eventRequest = gson.fromJson(req.body(), LarkEventRequest.class);

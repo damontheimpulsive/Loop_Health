@@ -59,6 +59,10 @@ dependencies {
 
     implementation 'com.gopay.services:service_commons:12.6.0-RELEASE'
 
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
+
     testImplementation 'org.junit-pioneer:junit-pioneer:2.1.0'
     implementation 'com.gopay.services:gopay_errors:5.76.0-RELEASE'
     compileOnly 'org.projectlombok:lombok:1.18.16'
