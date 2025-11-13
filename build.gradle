@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    implementation 'com.gopay.services:service_commons:12.6.0-RELEASE'
+
     testImplementation 'org.junit-pioneer:junit-pioneer:2.1.0'
     implementation 'com.gopay.services:gopay_errors:5.76.0-RELEASE'
     compileOnly 'org.projectlombok:lombok:1.18.16'

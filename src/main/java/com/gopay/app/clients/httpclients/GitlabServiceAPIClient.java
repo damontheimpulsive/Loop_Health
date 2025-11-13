@@ -6,10 +6,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GitlabServiceAPIClient {
     private final GitlabServiceInterface gitlabServiceInterface;
+    private final String privateToken;
     private static final String BASE_URL = "https://source.golabs.io";
-    private static final String PRIVATE_TOKEN = "TOKEN";
 
-    public GitlabServiceAPIClient() {
+    public GitlabServiceAPIClient(String privateToken) {
+        this.privateToken = privateToken;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -18,6 +19,6 @@ public class GitlabServiceAPIClient {
     }
 
     public GitlabPipelineResponse getPipeline(String project, long pipelineId) throws Exception {
-        return gitlabServiceInterface.getPipeline(PRIVATE_TOKEN, project, pipelineId).execute().body();
+        return gitlabServiceInterface.getPipeline(privateToken, project, pipelineId).execute().body();
     }
 }

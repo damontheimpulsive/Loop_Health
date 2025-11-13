@@ -1,6 +1,5 @@
 package com.gopay.app.controllers;
 
-
 import com.gopay.app.services.GitlabService;
 import com.gopay.app.models.GitlabPipelineResponse;
 import spark.Request;
