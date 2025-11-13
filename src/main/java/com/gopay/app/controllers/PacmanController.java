@@ -23,10 +23,10 @@ public class PacmanController {
 
     log.info("Handling create pacman request {}");
 
+   String pacmanTicketURL =  jiraService.executeJIRAIntegration();
 
-    jiraService.executeJIRAIntegration();
+   log.info("Pacman Ticket URL: {}", pacmanTicketURL);
 
-
-    return Map.of("message", "dummy response");
+    return Map.of("message", "pacmanTicketURL");
   }
 }

@@ -2,6 +2,7 @@ package com.gopay.app.services;
 
 import com.google.gson.Gson;
 import com.gopay.app.contracts.GenericResponse;
+import com.gopay.app.contracts.JiraResponse;
 import com.gopay.app.interfaces.JiraApiInterface;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +18,10 @@ import java.io.IOException;
 @AllArgsConstructor
 public class JiraService {
 
-
     private final JiraApiInterface jiraApiInterface;
     private final Gson gson;
 
-
-    public void executeJIRAIntegration() throws IOException {
+    public String executeJIRAIntegration() throws IOException {
 
 
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), createRequestBody());
@@ -34,17 +33,32 @@ public class JiraService {
 
         Response response = call.execute().raw();
 
+
         if (response.isSuccessful()) {
             log.info("JIRA response is successful", response.body().string());
+
+            Gson gson = new Gson();
+            JiraResponse jiraResponse = gson.fromJson(response.body().string(), JiraResponse.class);
+
+            log.info("JIRA response after GSON deserialize", jiraResponse);
+
+            String browseUrl = "https://go-jek.atlassian.net/browse/" + jiraResponse.getKey();
+
+            return browseUrl;
+
+
         } else {
             log.error("Error: " + response.message());
         }
 
+
+        return null;
     }
 
     private String createRequestBody() {
 
         String json =
+
                 "{\n" +
                         "  \"fields\": {\n" +
                         "    \"project\": { \"key\": \"PACMAN\" },\n" +
@@ -61,12 +75,35 @@ public class JiraService {
                         "        }\n" +
                         "      ]\n" +
                         "    },\n" +
-                        "    \"issuetype\": { \"id\": \"14119\" }\n" +
+                        "    \"issuetype\": { \"id\": \"14119\" },\n" +
+                        "    \"customfield_14506\": { \"id\": \"15288\" },\n" +
+                        "    \"customfield_14636\": { \"id\": \"16187\" },\n" +
+                        "    \"customfield_14614\": [ { \"id\": \"15620\" } ],\n" +
+                        "    \"customfield_14495\": \"https://git.example.com/repo/compare/commitA...commitB\",\n" +
+                        "    \"customfield_14498\": {\n" +
+                        "      \"type\": \"doc\",\n" +
+                        "      \"version\": 1,\n" +
+                        "      \"content\": [\n" +
+                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"Changelog:\" } ] },\n" +
+                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- Added feature X\" } ] },\n" +
+                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- Fixed bug Y\" } ] },\n" +
+                        "        { \"type\": \"paragraph\", \"content\": [ { \"type\": \"text\", \"text\": \"- Notes: deploy during off-peak hours\" } ] }\n" +
+                        "      ]\n" +
+                        "    },\n" +
+                        "    \"customfield_14499\": [\n" +
+                        "      { \"accountId\": \"712020:1daa816d-bbfd-440c-95b6-c9cbf0e7578d\" }\n" +
+                        "    ],\n" +
+                        "    \"customfield_14455\": [\n" +
+                        "      { \"accountId\": \"5ff407614d2179006eab9b52\" }\n" +
+                        "    ],\n" +
+                        "    \"customfield_14755\": { \"id\": \"16342\" },\n" +
+                        "    \"customfield_14635\": { \"id\": \"16157\" },\n" +
+                        "    \"customfield_14797\": \"2025-11-13\",\n" +
+                        "    \"customfield_14501\": { \"id\": \"15278\" }\n" +
                         "  }\n" +
                         "}";
 
         return json;
     }
-
 
 }
