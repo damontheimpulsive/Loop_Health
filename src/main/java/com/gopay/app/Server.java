@@ -44,5 +44,6 @@ public class Server {
         post("/events", eventController::handle, gson::toJson);
         get("/gitlab/pipeline", gitlabController::getGitlabPipeline, gson::toJson);
         get("/gitlab/compare", gitlabController::compareCommits, gson::toJson);
+        get("/gitlab/combined-info", gitlabController::getCombinedGitlabInfo, gson::toJson);
     }
 }
