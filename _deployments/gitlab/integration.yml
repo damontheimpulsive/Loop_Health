@@ -35,7 +35,7 @@ deploy:
   image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/gopaysh:latest
   stage: deploy
   script:
-    - gopaysh deployment create gopay-web-apis-app-gsh
+    - gopaysh deployment create pacman-bot-app-gsh
       --cluster go-gp-eks-01
       --env staging-secondary
       --image ${GOPAYSH_IMAGE}
