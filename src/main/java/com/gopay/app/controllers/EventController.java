@@ -27,7 +27,7 @@ public class EventController {
 
     final String eventType = (String) payload.get("type");
 
-    if (eventType.equalsIgnoreCase("url_verification")) {
+    if (eventType != null && eventType.equalsIgnoreCase("url_verification")) {
 
       log.info("Received URL verification event");
       final ChallengeRequest challengeRequest = gson.fromJson(req.body(), ChallengeRequest.class);
@@ -37,7 +37,7 @@ public class EventController {
 
 
 
-    log.info("Received unknown event type {}", eventType);
+    log.info("Received unknown event type");
     final LarkEventRequest eventRequest = gson.fromJson(req.body(), LarkEventRequest.class);
     final String deploymentPipelineUrl = eventRequest.getEvent().getMessage().getContent();
 
