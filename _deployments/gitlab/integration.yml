@@ -31,10 +31,9 @@ artefact-build:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
 
-
 deploy:
   image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/gopaysh:latest
-  stage: staging-deploy
+  stage: deploy
   script:
     - gopaysh deployment create gopay-web-apis-app-gsh
       --cluster go-gp-eks-01
