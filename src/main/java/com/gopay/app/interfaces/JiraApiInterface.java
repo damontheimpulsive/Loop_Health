@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 public interface JiraApiInterface {
 
 
-    String CONTENT_TYPE_APPLICATION_JSON = "application/json";
+    String CONTENT_TYPE_APPLICATION_JSON = "Content-Type: application/json";
 
     @Headers({CONTENT_TYPE_APPLICATION_JSON})
     @POST("/rest/api/3/issue")
