@@ -1,4 +1,4 @@
-image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/cx-java:jdk-21
+image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/cx-java:jdk-11
 include:
 - local: /_deployments/gitlab/integration.yml
 variables:
