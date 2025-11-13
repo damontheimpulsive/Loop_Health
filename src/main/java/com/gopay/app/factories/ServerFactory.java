@@ -17,6 +17,7 @@ public class ServerFactory {
                 .healthCheckController(new HealthCheckController())
                 .challengeController(new ChallengeController(gson))
                 .pacmanController(new PacmanController(gson))
+                .gson(gson)
                 .build();
     }
 }
