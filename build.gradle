@@ -1,0 +1,72 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'pmd'
+    id 'jacoco'
+    id 'org.sonarqube' version '3.3'
+    id 'com.jfrog.artifactory' version '4.28.2'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.freefair.lombok' version '8.0.0'
+}
+
+group 'com.gopay'
+
+application {
+    // TODO please change this as necessary
+    mainClassName 'com.gopay.app.App'
+}
+
+shadowJar {
+    archiveBaseName.set('pacman-bot')
+    archiveVersion.set('0.1.0')
+    archiveClassifier.set('')
+    exclude("test/")
+    zip64 true
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://artifactory-gojek.golabs.io/artifactory/gopay-release-local"
+    }
+    maven {
+        url "https://artifactory-gojek.golabs.io/artifactory/libs-release"
+    }
+    maven {
+        url "https://artifactory-gojek.golabs.io/artifactory/gopay-maven"
+        credentials {
+            username = System.getenv('ARTIFACTORY_GOJEK_USERNAME')
+            password = System.getenv('ARTIFACTORY_GOJEK_PASSWORD')
+        }
+        authentication {
+            basic(BasicAuthentication)
+        }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+dependencies {
+    implementation "io.grpc:grpc-all:1.62.2"
+    implementation 'ch.qos.logback:logback-classic:1.5.3'
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+    implementation 'com.getsentry.raven:raven-logback:8.0.3'    
+    implementation 'commons-collections:commons-collections:3.2.2'
+
+    implementation 'com.gopay.services:service_commons:12.6.0-RELEASE'
+    implementation 'com.gopay.commons:db_commons:9.0.0-RELEASE'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testImplementation 'org.mockito:mockito-inline:5.2.0'
+    testImplementation 'org.assertj:assertj-core:3.25.3'
+}
+
+jar {
+  enabled false
+}

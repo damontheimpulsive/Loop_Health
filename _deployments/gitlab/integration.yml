@@ -1,0 +1,43 @@
+.job_template: &gradle_cache
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - .gradle/caches
+      - .gradle/wrapper
+
+.job_template: &gradle_home_setup
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+
+unit-test:app:
+  <<: *gradle_home_setup
+  <<: *gradle_cache
+  stage: unit-test
+  variables:
+    APP_ENVIRONMENT: test
+  script:
+    # please modify this as necessary
+    - ./gradlew clean test
+  tags:
+    - gopaysh
+
+artefact-build:docker:
+  image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/cx-gopay-packager:latest
+  services:
+    - name: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/docker:28.1.1-dind
+      alias: docker
+      variables:
+        HEALTHCHECK_TCP_PORT: "2375"
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKERFILE_PATH: ./_deployments/docker/Dockerfile
+    DOCKER_CONTEXT_PATH: .
+  stage: artefact-build
+  script:
+    - packager
+  tags:
+    - gopaysh
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always

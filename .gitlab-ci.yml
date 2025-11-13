@@ -1,0 +1,24 @@
+image: gtf-system-registry.ap-southeast-5.cr.aliyuncs.com/gopay-systems/cx-java:jdk-21
+include:
+- local: /_deployments/gitlab/integration.yml
+variables: {}
+stages:
+- unit-test
+- integration-test
+- artefact-build
+- development-db-migration
+- development-deploy
+- staging-db-migration
+- staging-smoke-test-pre-deploy
+- staging-preview
+- staging-deploy
+- staging-smoke-test-post-deploy
+- sandbox-db-migration
+- sandbox-deploy
+- production-db-migration
+- canary-preview
+- canary-deploy
+- production-preview
+- production-deploy
+- production-rollback-preview
+- production-rollback
