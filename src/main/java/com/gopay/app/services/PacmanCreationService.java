@@ -2,7 +2,7 @@ package com.gopay.app.services;
 
 public class PacmanCreationService {
 
-    public void createPacman(final String deploymentPipelineUrl) {
-
+    public String createPacman(final String deploymentPipelineUrl) {
+        return "http://temp-url";
     }
 }

@@ -4,9 +4,11 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.gopay.app.Server;
+import com.gopay.app.clients.httpclients.LarkClient;
 import com.gopay.app.controllers.EventController;
 import com.gopay.app.controllers.GitlabController;
 import com.gopay.app.controllers.HealthCheckController;
+import com.gopay.app.services.LarkService;
 import com.gopay.app.services.PacmanCreationService;
 import com.gopay.app.services.GitlabService;
 import com.gopay.app.clients.httpclients.GitlabServiceAPIClient;
@@ -27,7 +29,7 @@ public class ServerFactory {
 
         return Server.builder()
                 .healthCheckController(new HealthCheckController())
-                .eventController(new EventController(gson, new PacmanCreationService()))
+                .eventController(new EventController(gson, new PacmanCreationService(), new LarkService(new LarkClient())))
                 .gitlabController(gitlabController)
                 .gson(gson)
                 .build();
