@@ -10,6 +10,7 @@ public class ReplyContract {
     private Content content;
 
     @AllArgsConstructor
+    @Data
     public static class Content {
         private String text;
     }

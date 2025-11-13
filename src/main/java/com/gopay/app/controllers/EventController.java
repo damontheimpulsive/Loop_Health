@@ -39,8 +39,8 @@ public class EventController {
 
     log.info("Received unknown event type");
     final LarkEventRequest eventRequest = gson.fromJson(req.body(), LarkEventRequest.class);
-    final String deploymentPipelineUrl = eventRequest.getEvent().getMessage().getContent();
-
+    final String requestContent = eventRequest.getEvent().getMessage().getContent().getText();
+    final String deploymentPipelineUrl = requestContent.split(" ")[1];
     if (!isPipelineUrlValid(deploymentPipelineUrl)) {
       log.debug("Invalid deployment pipeline URL: {}", deploymentPipelineUrl);
       return Map.of("message", "Invalid deployment pipeline URL");
