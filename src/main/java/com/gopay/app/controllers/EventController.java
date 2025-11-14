@@ -38,7 +38,7 @@ public class EventController {
       return Map.of("challenge", challengeRequest.getChallenge());
     }
 
-    log.info("Received unknown event type");
+    log.info("Handling event");
     final LarkEventRequest eventRequest = gson.fromJson(req.body(), LarkEventRequest.class);
     final String requestContent = eventRequest.getEvent().getMessage().getContent();
 

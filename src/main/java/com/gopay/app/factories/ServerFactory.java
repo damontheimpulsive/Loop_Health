@@ -47,7 +47,13 @@ public class ServerFactory {
 
         return Server.builder()
                 .healthCheckController(new HealthCheckController())
-                .eventController(new EventController(gson, new PacmanCreationService(gitlabService, jiraService), new LarkService(new LarkClient(gson))))
+                .eventController(
+                        new EventController(
+                                gson,
+                                new PacmanCreationService(gitlabService, jiraService),
+                                new LarkService(new LarkClient(gson, configuration))
+                        )
+                )
                 .gitlabController(gitlabController)
                 .gson(gson)
                 .build();

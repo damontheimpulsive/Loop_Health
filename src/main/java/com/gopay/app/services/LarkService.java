@@ -14,7 +14,6 @@ public class LarkService {
         try {
             larkClient.sendReply(
                     request.getEvent().getMessage().getMessageId(),
-                    request.getHeader().getToken(),
                     content
             );
         } catch (Exception e) {

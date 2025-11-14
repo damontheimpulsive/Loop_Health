@@ -1,5 +1,6 @@
 package com.gopay.app.clients.httpclients;
 
+import com.gojek.ApplicationConfiguration;
 import com.google.gson.Gson;
 import com.gopay.app.contracts.*;
 import lombok.extern.slf4j.Slf4j;
@@ -14,25 +15,28 @@ public class LarkClient {
     private final LarkClientInterface larkClientInterface;
     private final Gson gson;
     private static final String BASE_URL = "https://open.larksuite.com/open-apis/im/";
+    private final ApplicationConfiguration config;
 
-    public LarkClient(Gson gson) {
+    public LarkClient(Gson gson, ApplicationConfiguration config) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         this.larkClientInterface = retrofit.create(LarkClientInterface.class);
         this.gson = gson;
+        this.config = config;
     }
 
-    public void sendReply(String messageId, String token, String body) throws Exception {
+    public void sendReply(String messageId, String body) throws Exception {
 
-        log.info("MessageId : {} ", messageId);
+        log.info("Sending reply for MessageId : {} ", messageId);
+        final String TENANT_ACCESS_TOKEN = config.getValueAsString("LARK_TENANT_ACCESS_TOKEN", "");
 
         Request request = new Request.Builder()
                 .url("https://open.larksuite.com/open-apis/im/v1/messages/om_x100b5e6a5d2a88a0e2d8de3984002f7/reply")
                 .method("POST",createRequestBody(body))
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer t-g206bdiXUFUQYSLVWKUZLDYX7FV4SSAMJI3AY7PC")
+                .addHeader("Authorization", "Bearer " + TENANT_ACCESS_TOKEN)
                 .build();
         Response larkResponse = new OkHttpClient().newBuilder().build().newCall(request).execute();
 
@@ -62,7 +66,7 @@ public class LarkClient {
                     createRequestBody(body)
             );
             retrofit2.Response<LarkResponse> retryResponse = replyCall.execute();*/
-            log.error("Lark reply retry failed: {}", larkResponse1.getCode());
+            log.error("Lark reply sending failed: {}", larkResponse1.getCode());
             return;
         }
         log.info("Lark reply sent successfully: {}", larkResponse.body());
