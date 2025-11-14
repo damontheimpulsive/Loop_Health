@@ -80,15 +80,17 @@ public class JiraService {
 
         String baritoLink = "https://barito-viewer.golabs.io/togu/goto/86e31150-c09a-11f0-acd1-ed09208ebeb6";
 
-//        String compareLink = "https://source.golabs.io/gopay/authorization_service/-/compare/v7.11.0...v7.12.0?from_project_id=12649";
+        String compareLink_0 = "https://source.golabs.io/gopay/authorization_service/-/compare/v7.11.0...v7.12.0?from_project_id=12649";
 
 //        String pipeline1 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12936112";
-//        String pipeline2 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12896592";
+
+
+        String pipeline2 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12896592";
 
 
         String deploymentLink = gitlabResponse.getDeployPipelineLink();
-        String rollbackLink = gitlabResponse.getRollbackPipelineLink();
-        String compareLink = gitlabResponse.getCommitDiffs();
+        String rollbackLink = gitlabResponse.getRollbackPipelineLink().isEmpty() ? pipeline2 :  gitlabResponse.getRollbackPipelineLink();
+        String compareLink = gitlabResponse.getCommitDiffs().isEmpty() ? compareLink_0 : gitlabResponse.getCommitDiffs();
 
         String diffLink = "https://yggdrasil.teleport-proxy.apps.gtflabs.io/ui/v2/authorization_service/diff?first_tag=production&first_version=0.667.6&second_tag=production&second_version=0.667.13";
 
