@@ -82,9 +82,7 @@ public class JiraService {
 
         String compareLink_0 = "https://source.golabs.io/gopay/authorization_service/-/compare/v7.11.0...v7.12.0?from_project_id=12649";
 
-//        String pipeline1 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12936112";
-
-
+       String pipeline1 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12936112";
         String pipeline2 = "https://source.golabs.io/gopay/authorization_service/-/pipelines/12896592";
 
 
@@ -161,7 +159,7 @@ public class JiraService {
                         "    \"customfield_14506\": { \"id\": \"15288\" },\n" +
                         "    \"customfield_14636\": { \"id\": \"16187\" },\n" +
                         "    \"customfield_14614\": [ { \"id\": \"15620\" } ],\n" +
-                        "    \"customfield_14495\": \"" + compareLink + "\",\n" +
+                        "    \"customfield_14495\": \"" + compareLink_0 + "\",\n" +
                         "    \"customfield_14498\": {\n" +
                         "      \"type\": \"doc\",\n" +
                         "      \"version\": 1,\n" +
@@ -177,8 +175,8 @@ public class JiraService {
                         "    \"customfield_14635\": { \"id\": \"16157\" },\n" +
                         "    \"customfield_14797\": \"2025-11-13\",\n" +
                         "    \"customfield_14501\": { \"id\": \"15278\" },\n" +
-                        "    \"customfield_14487\": \"" + deploymentLink + "\",\n" +
-                        "    \"customfield_14488\": \"" + rollbackLink + "\",\n" +
+                        "    \"customfield_14487\": \"" + pipeline1 + "\",\n" +
+                        "    \"customfield_14488\": \"" + pipeline2 + "\",\n" +
                         "    \"customfield_14518\": {\n" +
                         "      \"type\": \"doc\",\n" +
                         "      \"version\": 1,\n" +

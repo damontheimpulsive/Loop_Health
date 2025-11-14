@@ -46,5 +46,10 @@ public class Server {
         get("/gitlab/compare", gitlabController::compareCommits, gson::toJson);
         get("/gitlab/combined-info", gitlabController::getCombinedGitlabInfo, gson::toJson);
         get("/gitlab/last-deployment", gitlabController::getLastDeploymentWebUrlAndSha, gson::toJson);
+
+        get("/*", (req, res) -> {
+            res.status(404);
+            return "Not found";
+        });
     }
 }
