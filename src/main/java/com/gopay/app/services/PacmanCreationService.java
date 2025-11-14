@@ -1,5 +1,6 @@
 package com.gopay.app.services;
 
+import com.gopay.app.contracts.GitlabResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,12 +12,21 @@ public class PacmanCreationService {
     private final JiraService jiraService;
 
     public String createPacman(final String deploymentPipelineUrl) throws Exception {
-        log.info("Handling create pacman request {}");
+
+
+        log.info("Handling create pacmanRequest with deploymentPipelineUrl: {}", deploymentPipelineUrl);
 
 
         // gitlabService.getCombinedGitlabInfo(1L);
 
-        String pacmanTicketURL = jiraService.executeJIRAIntegration();
+        GitlabResponse gitlabResponse =  GitlabResponse.
+                builder()
+                .commitDiffs("")
+                .deployPipelineLink(deploymentPipelineUrl)
+                .rollbackPipelineLink("").build();
+
+        String pacmanTicketURL = jiraService.executeJIRAIntegration(gitlabResponse);
+
         log.info("Pacman Ticket URL: {}", pacmanTicketURL);
         return pacmanTicketURL;
     }
