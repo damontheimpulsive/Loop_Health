@@ -33,7 +33,7 @@ public class LarkClient {
         final String TENANT_ACCESS_TOKEN = config.getValueAsString("LARK_TENANT_ACCESS_TOKEN", "");
 
         Request request = new Request.Builder()
-                .url("https://open.larksuite.com/open-apis/im/v1/messages/om_x100b5e6a5d2a88a0e2d8de3984002f7/reply")
+                .url(String.format("https://open.larksuite.com/open-apis/im/v1/messages/%s/reply", messageId))
                 .method("POST",createRequestBody(body))
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Authorization", "Bearer " + TENANT_ACCESS_TOKEN)
