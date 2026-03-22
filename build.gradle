@@ -28,8 +28,15 @@ repositories {
 dependencies {
 
     implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+    implementation 'ch.qos.logback:logback-classic:1.5.6'
     implementation 'com.getsentry.raven:raven-logback:8.0.3'
     implementation 'commons-collections:commons-collections:3.2.2'
+
+    // REST API server
+    implementation 'io.javalin:javalin:6.4.0'
+
+    // JSON serialization
+    implementation 'com.google.code.gson:gson:2.11.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
@@ -37,6 +44,7 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.2')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.mockito:mockito-core:5.12.0'
+    testImplementation 'io.javalin:javalin-testtools:6.4.0'
 }
 
 jar {
