@@ -8,91 +8,41 @@ plugins {
 }
 
 
-group 'com.gopay'
+group 'com.design'
 
 application {
-    mainClassName 'com.gopay.app.App'
+    mainClassName 'com.demo.app.LoopHealthApp'
 }
 
 shadowJar {
-    archiveBaseName.set('pacman-bot')
-    exclude("test/")
+    archiveBaseName.set('loop_health')
 }
 
+/* --- Add repositories so Gradle can resolve external dependencies --- */
 repositories {
     mavenCentral()
-    mavenLocal()
-    maven {
-        url "https://artifactory-gojek.golabs.io/artifactory/gopay-release-local"
-    }
-    maven {
-        url 'https://artifactory-gojek.golabs.io/artifactory/gopay-libs-releases'
-    }
-    maven {
-        url "https://artifactory-gojek.golabs.io/artifactory/libs-release"
-    }
-    maven {
-        url "https://artifactory-gojek.golabs.io/artifactory/remote-repos"
-    }
-    maven {
-        url 'https://jitpack.io'
-    }
+
 }
 
 
 dependencies {
-    test {
-        useJUnitPlatform()
-        include '**/*Test.class'
-    }
-    implementation 'ch.qos.logback:logback-classic:1.5.3'
-    implementation 'ch.qos.logback:logback-core:1.3.0-alpha4'
+
     implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
     implementation 'com.getsentry.raven:raven-logback:8.0.3'
     implementation 'commons-collections:commons-collections:3.2.2'
-    testImplementation 'org.mockito:mockito-inline:5.2.0'
-    testImplementation 'org.assertj:assertj-core:3.25.3'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation 'com.sparkjava:spark-core:2.9.1'
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    implementation 'com.gopay.services:service_commons:12.6.0-RELEASE'
-
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
-
-    testImplementation 'org.junit-pioneer:junit-pioneer:2.1.0'
-    implementation 'com.gopay.services:gopay_errors:5.76.0-RELEASE'
     compileOnly 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
-    testCompileOnly 'org.projectlombok:lombok:1.18.16'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
-    implementation 'com.larksuite.oapi:oapi-sdk:2.4.25'
-    testImplementation 'org.mockito:mockito-junit-jupiter:3.12.4'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.7.2") {
-        because 'allows JUnit 3 and JUnit 4 tests to run'
-    }
 
-}
-
-tasks.withType(Test).configureEach {
-    useJUnitPlatform()
-}
-
-tasks.register('unitTest', Test ) {
-    exclude '**/integration/**'
-    exclude '**/repository/**'
-}
-
-tasks.register('integrationTest', Test) {
-    include '**/repository/**'
-    include '**/integration/**'
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-core:5.12.0'
 }
 
 jar {
     enabled false
+}
+
+test {
+    useJUnitPlatform()
 }
